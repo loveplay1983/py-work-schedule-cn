@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成排班表</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>生成排班表</h1>
+    <form id="scheduleForm" method="POST" action="/generate">
+        <div class="form-group">
+            <label for="month">月份:</label>
+            <select id="month" name="month">
+                {% for m in range(1, 13) %}
+                <option value="{{ m }}" {% if m == current_month %}selected{% endif %}>
+                    {{ month_name[m-1] }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="year">年份:</label>
+            <input type="number" id="year" name="year" value="{{ current_year }}" min="1900" max="2100">
+        </div>
+        <button type="submit">生成排班表</button>
+    </form>
+    <div id="status"></div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
